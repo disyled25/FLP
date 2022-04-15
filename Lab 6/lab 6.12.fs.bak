@@ -16,7 +16,7 @@ let index_min_in_list list =
         |[] -> index
     list_min list list.Head 0 0
 
-// Cuts all elements of list after given index (including element with that index) and return what's left
+// Cuts tail from given index
 let cut_tail list index = 
     let rec f list list1 index =
         match list with
