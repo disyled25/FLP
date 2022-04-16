@@ -8,6 +8,7 @@ let list_input =
         else l_i (list@[input])
     l_i []
 
+// Sorts list in order, positive first, then negative
 let list_positive_negative_order list = 
     let rec positive list final_list= 
         match list with
