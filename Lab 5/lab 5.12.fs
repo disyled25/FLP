@@ -14,12 +14,12 @@ let main args =
             | "JavaScript" -> "Are you misspelled Java?"
             | others -> "Didn't expect that"
 
-    // superposition
     Console.WriteLine("What is your favorite programming language?")
+
+    // superposition
     (Console.ReadLine >> question >> printfn "%s") ()
 
     // currying
-    Console.WriteLine("What is your favorite programming language?")
     let answer input (output:string -> unit) choose = output(choose(input()))
     answer Console.ReadLine Console.WriteLine question
     0

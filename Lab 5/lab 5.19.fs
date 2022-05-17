@@ -21,39 +21,41 @@ let Is_divided_by num divisor =
         else false
 
 // Finds sum of digits with condition, if you want to find sum without any condition, use (fun x -> true) as a condition
-let Sum_of_digits num pr = 
-    let rec sum_of_digits num sum =
-        if num = 0 then sum
-            elif pr num then sum_of_digits (num / 10) (sum + (num % 10))
-                else sum_of_digits (num / 10) sum
-    sum_of_digits num 0
+let rec Sum_of_digits num sum pr = 
+    if num = 0 then sum
+        elif pr (num % 10) then Sum_of_digits (num / 10) (sum + (num % 10)) pr
+            else Sum_of_digits (num / 10) sum pr
 
-// First method
-let rec func1 num ini i = 
-    if num >= ini then
-        if (GC_divisor num ini) <> 1 && Is_number_even num then func1 num (ini + 1) (i + 1)
-            else func1 num (ini + 1) i
-    else i
+// First method function
+let func1 num =
+    let rec f i ini =     
+        if num > i then
+            if (GC_divisor num i) <> 1 && Is_number_even i then f (i + 1) (ini + 1)
+                else f (i + 1) ini
+        else ini
+    f 1 0
     
-// Second method
-let rec func2 num max = 
-    if (num % 10) <> 0 then
-        if not (Is_divided_by num 3) && num % 10 > max then func2 (num / 10) (num % 10)
-            else func2 (num / 10) max
-    else max
+// Second method function
+let func2 num = 
+    let rec f num max =
+        if num = 0 then max
+            elif not (Is_divided_by (num % 10) 3) && num % 10 > max then f (num / 10) (num % 10)
+                else f (num / 10) max
+    f num 0
 
 // Third method
-let rec func3 num = 
-    let rec f max i = 
+let func3 num = 
+    let rec f max i= 
         if i < num then
-            if GC_divisor num i <> 1 && i > max && (i % (min_divisor num 1)) <> 0 then f i (i + 1)
+            if GC_divisor num i <> 1 && i > max && not (Is_divided_by i (min_divisor num 1)) then f i (i + 1)
                 else f max (i + 1)
         else max
-    (f 1 1) * (Sum_of_digits num (fun x -> (x%10)<5))
+
+    (f 1 1) * (Sum_of_digits num 0 (fun x -> x<5))
 
 [<EntryPoint>]
 let main argv =
-    printfn "%A" (func1 6 1 0)
-    printfn "%A" (func2 73456 0)
+    printfn "%A" (func1 6)
+    printfn "%A" (func2 73456)
     printfn "%A" (func3 14)
     0

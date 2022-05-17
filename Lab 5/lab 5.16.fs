@@ -14,7 +14,7 @@ let func num f ini =
         if i > num then ini
             elif GC_Divisor num i = 1 then loop num f (f ini i) (i + 1)
                 else loop num f ini (i + 1)
-    loop num f ini 1
+    loop num f ini 2
 
 // Euler function
 let euler x = func x (fun x y -> x + 1) 0

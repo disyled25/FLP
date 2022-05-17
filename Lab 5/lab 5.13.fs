@@ -8,9 +8,10 @@ let Min_Tail number  =
     M_T number (number%10)
 
 let rec Min_Up number = 
+    let min = Min_Up (number/10)
     if number = 0 then 9
-    elif number % 10 < Min_Up (number/10) then (number%10)
-    else Min_Up (number/10)
+    elif number % 10 < min then (number%10)
+    else Min_Up min
 
 let Max_Tail number  =
     let rec M_T number max = 
@@ -19,10 +20,11 @@ let Max_Tail number  =
         else M_T (number/10) max
     M_T number (number%10)
 
-let rec Max_Up number = 
+let rec Max_Up number =
+    let max = Max_Up (number/10)
     if number = 0 then 0
-    elif number % 10 > Max_Up (number/10) then (number%10)
-    else Max_Up (number/10)
+    elif number % 10 > max then (number%10)
+    else max
 
 let Mul_Tail number = 
     let rec M_T number mul =

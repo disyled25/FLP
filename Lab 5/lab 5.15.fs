@@ -10,11 +10,11 @@ let rec GC_Divisor x y =
 
 // Function iterates coprime components numbers and performs operations on numbers coprime to the given
 let func num f ini = 
-    let rec loop num f ini i = 
+    let rec loop ini i = 
         if i > num then ini
-            elif GC_Divisor num i = 1 then loop num f (f ini i) (i + 1)
-                else loop num f ini (i + 1)
-    loop num f ini 1
+            elif GC_Divisor num i = 1 then loop (f ini i) (i + 1)
+                else loop ini (i + 1)
+    loop ini 2
 
 [<EntryPoint>]
 let main args =
