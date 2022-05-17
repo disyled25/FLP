@@ -44,8 +44,5 @@ parent(katya,julia).
 parent(george,emily).
 parent(alice,emily).
 
-father(X):- parent(Y,X),man(Y),write(Y).
-father(X,Y):-parent(X,Y),man(X).
-
 wife(X) :- parent(X,Y),parent(Z,Y),woman(Z),write(Z).
 wife(X,Y) :- parent(Y,Z),parent(X,Z),woman(X).
