@@ -50,6 +50,5 @@ let find_interval_in_list list index1 index2 =
 [<EntryPoint>]
 let main argv = 
     let list = list_input
-    printfn "%A" (find_interval_in_list list 3 8)
     printfn "%A" (count_min_in_list (find_interval_in_list list 3 8))
     0

@@ -1,13 +1,5 @@
 ﻿open System
 
-// Function that allows the user to enter a list from the console
-let list_input =
-    let rec l_i list =
-        let input = Convert.ToInt32(Console.ReadLine())
-        if input = 0 then list
-        else l_i (list@[input])
-    l_i []
-
 // Finds two numbers, maximal and second maximal
 let two_max_in_list list = 
     let rec first_max list max1 i index = 
@@ -22,8 +14,16 @@ let two_max_in_list list =
 
     second_max list (first_max list list.Head 0 0) list.Head 0
 
+// Function that allows the user to enter a list from the console
+let list_input =
+    let rec l_i list =
+        let input = Convert.ToInt32(Console.ReadLine())
+        if input = 0 then list
+        else l_i (list@[input])
+    l_i []
+
 [<EntryPoint>]
 let main args = 
-    let list = list_input
+    let list = list_input;
     printfn "%A" (two_max_in_list list)
     0
