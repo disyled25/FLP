@@ -64,11 +64,11 @@ in_number_exclude(N,X,N1,I):- N > 10,
     N_cur is N div I, N_cur > 0, N_cur < 10,
     X1 is I * N_cur, Ncur is N - X1,
     I1 is I div 10,
-    in_number_exlude(Ncur,X,N1cur,I1),
+    in_number_exclude(Ncur,X,N1cur,I1),
     X1div is X1 div 10, N1 is X1div + N1cur.
 in_number_exclude(N,X,N1,I):-
     Num is N div I, Num > 10, I1 is I * 10,
-    in_number_exlude(N,X,N1,I1).
+    in_number_exclude(N,X,N1,I1).
 
 in_number_exclude(Number,Digit,New_number):- in_number_exclude(Number,Digit,New_number,1).
 
