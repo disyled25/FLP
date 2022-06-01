@@ -81,3 +81,9 @@ perm_num(Number,Permutation):-num_class(Number,I), perm_num(Number,Permutation,I
 
 p_dig(X,Ans):- perm_num(X,Ans), prost(Ans),!.
 pandigit(X,Ans):-pan_d(X,X1), p_dig(X1,Ans).
+
+%Excercise 14
+%List length
+l_l([],Ans,Ans):-!.
+l_l([_|T],Count,Ans):-Cur_count is Count + 1, l_l(T,Cur_count,Ans).
+list_lenght(List,Ans):- l_l(List,0,Ans).
