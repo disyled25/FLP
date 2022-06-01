@@ -1,4 +1,4 @@
-%Grater common divisor
+%Greatest common divisor
 gcd(0,X,X):-!.
 gcd(X,Y,Z):- X1 is Y mod X, gcd(X1,X,Z).
 
@@ -46,4 +46,38 @@ tw(X,I,Max,Ans):- not_coprime(X,I), mdiv(X,Div), I1 is I mod Div, I1 is 0,
 tw(X,I,Max,Ans):- I2 is I + 1, tw(X,I2, Max,Ans).
 twelve(X,Ans):- tw(X,1,0,A1), sum_digits_lesser_5(X,A2), Ans is A1*A2,!.
 
+%Exercise 13 (greatest n-pandigital number)
 
+pan(_,0,0):-!.
+pan(X,I,Ans):- I1 is I - 1, pan(X,I1,A),  Ans is A * 10 + I.
+pan_d(X,Ans):- pan(X,X,Ans).
+
+
+num_class(N,I,I):- X is N div I, X > 0, X < 10, !.
+num_class(N,I,Ans):- X is N div I, X > 10, I1 is I * 10, num_class(N,I1,Ans).
+num_class(N,I):- num_class(N,1,I).
+
+in_number_exclude(N,X,N1,I):-
+    X is N div I, X < 10, X > 0,
+    N_cur is X * I, N1 is N - N_cur.
+in_number_exclude(N,X,N1,I):- N > 10,
+    N_cur is N div I, N_cur > 0, N_cur < 10,
+    X1 is I * N_cur, Ncur is N - X1,
+    I1 is I div 10,
+    in_number_exlude(Ncur,X,N1cur,I1),
+    X1div is X1 div 10, N1 is X1div + N1cur.
+in_number_exclude(N,X,N1,I):-
+    Num is N div I, Num > 10, I1 is I * 10,
+    in_number_exlude(N,X,N1,I1).
+
+in_number_exclude(Number,Digit,New_number):- in_number_exclude(Number,Digit,New_number,1).
+
+perm_num(X,X,1):- !.
+perm_num(Number,Permutation,I):-
+    in_number_exclude(Number,Digit,New_number),I1 is I div 10,
+    perm_num(New_number,P1,I1),X is Digit * I,Permutation is X + P1.
+
+perm_num(Number,Permutation):-num_class(Number,I), perm_num(Number,Permutation,I).
+
+p_dig(X,Ans):- perm_num(X,Ans), prost(Ans),!.
+pandigit(X,Ans):-pan_d(X,X1), p_dig(X1,Ans).
