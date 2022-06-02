@@ -16,6 +16,17 @@ md(X,I,Ans):-X1 is X mod I, X1 is 0, Ans is I,!.
 md(X,I,Ans):-I1 is I + 1, md(X,I1,Ans).
 mdiv(X,Ans):- md(X,2,Ans).
 
+%Returns reversed list
+r_l([],List,List):-!.
+r_l([H|T],Blank,FinalList):- r_l(T,[H|Blank],FinalList).
+reversed_list([H|T],FinalList):- r_l([H|T],[],FinalList),!.
+
+%Returns the minimal element of the given list
+min_in_l([],CurMin,CurMin):-!.
+min_in_l([H|T],CurMin,Min):- H < CurMin, C is H, min_in_l(T,C,Min).
+min_in_l([_|T],CurMin,Min):- min_in_l(T,CurMin,Min).
+min_in_list([H|T],Min):-CurMin is H, min_in_l([H|T],CurMin,Min),!.
+
 
 %Exercise 11 (up)
 el_up(_,1,0):-!.
@@ -82,8 +93,14 @@ perm_num(Number,Permutation):-num_class(Number,I), perm_num(Number,Permutation,I
 p_dig(X,Ans):- perm_num(X,Ans), prost(Ans),!.
 pandigit(X,Ans):-pan_d(X,X1), p_dig(X1,Ans).
 
-%Excercise 14
+%Exercise 14
 %List length
 l_l([],Ans,Ans):-!.
 l_l([_|T],Count,Ans):-Cur_count is Count + 1, l_l(T,Cur_count,Ans).
 list_lenght(List,Ans):- l_l(List,0,Ans).
+
+%Exercise 15 (1.9)
+ft([H|T],H,T):-!.
+ft([H|T],Min,Ans):-H \= Min, ft(T,Min,Ans).
+fithteen(List,Ans):- reversed_list(List,List1), min_in_list(List1,Min),
+    ft(List1,Min,List2),reversed_list(List2,Ans),!.
