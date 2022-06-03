@@ -113,8 +113,9 @@ perm_num(Number,Permutation,I):-
 
 perm_num(Number,Permutation):-num_class(Number,I), perm_num(Number,Permutation,I).
 
-p_dig(X,Ans):- perm_num(X,Ans), prost(Ans),!.
-pandigit(X,Ans):-pan_d(X,X1), p_dig(X1,Ans).
+p_dig(X,Ans):- pan_d(X,X1), perm_num(X1,Ans), prost(Ans),!.
+p_dig(X,Ans):- X1 is X - 1, p_dig(X1,Ans).
+pandigit(Ans):- p_dig(9,Ans).
 
 %Exercise 14
 %List length
