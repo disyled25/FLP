@@ -139,3 +139,10 @@ seventeen(List,I1,I2,Ans):- min_in_list(List,Min,_),list_in_interval(List,I1,I2,
 %Exercise 18 (1.24)
 eighteen(List,Ans,Ans1):- max_in_list(List,Ans,_),in_list_exclude(List,Ans,List1),
     max_in_list(List1,Ans1,_),!.
+
+%Exercise 19 (1.31)
+c_even_in_l([],Count,Count):-!.
+c_even_in_l([H|T],Cur,Count):- Even is H mod 2, Even is 0, C is Cur + 1,
+    c_even_in_l(T,C,Count).
+c_even_in_l([_|T],Cur,Count):- c_even_in_l(T,Cur,Count).
+count_even_in_list(List,Ans):-c_even_in_l(List,0,Ans),!.
