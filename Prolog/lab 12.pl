@@ -48,6 +48,10 @@ c_e_in_l([H|T],Elem,Count,Ans):- H is Elem, Cur is Count + 1, c_e_in_l(T,Elem,Cu
 c_e_in_l([_|T],Elem,Count,Ans):-c_e_in_l(T,Elem,Count,Ans).
 count_elem_in_list(List, Elem, Ans):-c_e_in_l(List,Elem,0,Ans),!.
 
+%Removes an element from the list
+in_list_exclude([H|T],H,T).
+in_list_exclude([H|T],X,[H|Tail]):- in_list_exclude(T,X,Tail).
+
 %----------------------------------------------------------------------
 
 %Exercise 11 (up)
@@ -131,3 +135,7 @@ sixteen(List,Ans):- min_in_list(List,_,I), max_in_list(List,_, I1),
 %Exercise 17 (1.22)
 seventeen(List,I1,I2,Ans):- min_in_list(List,Min,_),list_in_interval(List,I1,I2,List1),
     count_elem_in_list(List1,Min,Ans),!.
+
+%Exercise 18 (1.24)
+eighteen(List,Ans,Ans1):- max_in_list(List,Ans,_),in_list_exclude(List,Ans,List1),
+    max_in_list(List1,Ans1,_),!.
