@@ -35,11 +35,18 @@ max_in_l([H|T],CurMax,Max,I1,_,I):- H > CurMax, C is H, I2 is I1 + 1,
 max_in_l([_|T],CurMax,Max,I1,Temp,I):- I2 is I1 + 1, max_in_l(T,CurMax,Max,I2,Temp,I).
 max_in_list([H|T],Max,I):-CurMax is H, max_in_l(T,CurMax,Max,1,_,I),!.
 
+%Returns the interval of the given list
 l_in_i([],List,_,_,_,List):-!.
 l_in_i([H|T],List1,I1,I2,Icur,Ans):- Icur > I1, Icur < I2, Cur is Icur + 1,
     l_in_i(T,[H|List1],I1,I2,Cur,Ans).
 l_in_i([_|T],List1,I1,I2,Icur,Ans):-Cur is Icur + 1, l_in_i(T,List1,I1,I2,Cur,Ans).
 list_in_interval(List,I1,I2,Ans):- l_in_i(List,[],I1,I2,1,Ans1), reversed_list(Ans1,Ans),!.
+
+%Counts the number of occurrences of an element in a list
+c_e_in_l([],_,Ans,Ans):-!.
+c_e_in_l([H|T],Elem,Count,Ans):- H is Elem, Cur is Count + 1, c_e_in_l(T,Elem,Cur,Ans).
+c_e_in_l([_|T],Elem,Count,Ans):-c_e_in_l(T,Elem,Count,Ans).
+count_elem_in_list(List, Elem, Ans):-c_e_in_l(List,Elem,0,Ans),!.
 
 %----------------------------------------------------------------------
 
@@ -120,3 +127,7 @@ fifteen(List,Ans):- reversed_list(List,List1), min_in_list(List1,Min,_),
 %Exercise 16 (1.12)
 sixteen(List,Ans):- min_in_list(List,_,I), max_in_list(List,_, I1),
     (I<I1,list_in_interval(List,I,I1,Ans);list_in_interval(List,I1,I,Ans)),!.
+
+%Exercise 17 (1.22)
+seventeen(List,I1,I2,Ans):- min_in_list(List,Min,_),list_in_interval(List,I1,I2,List1),
+    count_elem_in_list(List1,Min,Ans),!.
