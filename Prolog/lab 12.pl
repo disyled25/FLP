@@ -59,9 +59,9 @@ twelve(X,Ans):- tw(X,1,0,A1), sum_digits_lesser_5(X,A2), Ans is A1*A2,!.
 
 %Exercise 13 (greatest n-pandigital number)
 
-pan(_,0,0):-!.
-pan(X,I,Ans):- I1 is I - 1, pan(X,I1,A),  Ans is A * 10 + I.
-pan_d(X,Ans):- pan(X,X,Ans).
+pan(X,X,X):-!.
+pan(X,I,Ans):- I1 is I + 1, pan(X,I1,A),  Ans is A * 10 + I.
+pan_d(X,Ans):- pan(X,1,Ans).
 
 
 num_class(N,I,I):- X is N div I, X > 0, X < 10, !.
