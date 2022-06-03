@@ -146,3 +146,10 @@ c_even_in_l([H|T],Cur,Count):- Even is H mod 2, Even is 0, C is Cur + 1,
     c_even_in_l(T,C,Count).
 c_even_in_l([_|T],Cur,Count):- c_even_in_l(T,Cur,Count).
 count_even_in_list(List,Ans):-c_even_in_l(List,0,Ans),!.
+
+%Exercise 20 (1.34)
+l_in_s([],List,_,_,_,List):-!.
+l_in_s([H|T],List1,I1,I2,Icur,Ans):- Icur >= I1, Icur =< I2, Cur is Icur + 1,
+    l_in_s(T,[H|List1],I1,I2,Cur,Ans).
+l_in_s([_|T],List1,I1,I2,Icur,Ans):-Cur is Icur + 1, l_in_s(T,List1,I1,I2,Cur,Ans).
+list_in_segment(List,I1,I2,Ans):- l_in_s(List,[],I1,I2,1,Ans1), reversed_list(Ans1,Ans),!.
