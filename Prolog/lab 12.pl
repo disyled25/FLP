@@ -95,14 +95,11 @@ num_class(N,I,Ans):- X is N div I, X > 10, I1 is I * 10, num_class(N,I1,Ans).
 num_class(N,I):- num_class(N,1,I).
 
 in_number_exclude(N,X,N1,I):-
-    X is N div I, X < 10, X > 0,
-    N_cur is X * I, N1 is N - N_cur.
+    X is N div I, N1 is N mod I.
 in_number_exclude(N,X,N1,I):- N > 10,
-    N_cur is N div I, N_cur > 0, N_cur < 10,
-    X1 is I * N_cur, Ncur is N - X1,
-    I1 is I div 10,
-    in_number_exclude(Ncur,X,N1cur,I1),
-    X1div is X1 div 10, N1 is X1div + N1cur.
+    N2 is N mod I, I1 is I div 10,
+    in_number_exclude(N2,X,N1_new,I1),
+    X1div is ((N div I) * I) div 10, N1 is X1div + N1_new.
 
 in_number_exclude(Number,Digit,New_number):- num_class(Number,I), in_number_exclude(Number,Digit,New_number,I).
 
